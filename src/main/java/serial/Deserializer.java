@@ -16,7 +16,7 @@ public class Deserializer {
 
     public String read() throws IOException {
         final byte[] first = inputStream.readNBytes(4);
-        System.out.println(new String(first));
+        System.out.println("message size " + new String(first));
 
 
         final StringBuilder builder = new StringBuilder();
