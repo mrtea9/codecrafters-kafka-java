@@ -29,10 +29,11 @@ public class Deserializer {
 
         int value;
         while ((value = inputStream.read()) != -1) {
-            System.out.println("value = " + value + "; char value = " + (char) value);
+            //System.out.println("value = " + value + "; char value = " + (char) value);
             builder.append((char) value);
         }
 
+        System.out.println(builder);
         return builder.toString();
     }
 }
