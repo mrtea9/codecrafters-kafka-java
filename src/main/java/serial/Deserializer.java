@@ -4,6 +4,7 @@ import util.TrackedInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 public class Deserializer {
 
@@ -15,8 +16,8 @@ public class Deserializer {
 
 
     public String read() throws IOException {
-        final byte[] first = inputStream.readNBytes(4);
-        System.out.println("message size " + new String(first));
+        final var test = new String(inputStream.readNBytes(4), StandardCharsets.US_ASCII);
+        System.out.println("message size " + test);
 
 
         final StringBuilder builder = new StringBuilder();
