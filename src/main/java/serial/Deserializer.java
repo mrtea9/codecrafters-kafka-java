@@ -26,6 +26,7 @@ public class Deserializer {
         while ((value = inputStream.read()) != -1) {
             builder.append((char) value);
         }
+        System.out.println("sad + " + builder.toString());
 
         return builder.toString();
     }
