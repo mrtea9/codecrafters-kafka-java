@@ -24,7 +24,12 @@ public class Deserializer {
         final var apiVersion = inputStream.readNBytes(2);
         final var correlationId = inputStream.readNBytes(4);
 
-        System.out.println();
-        return correlationId;
+        byte[] response = new byte[messageSize.length + correlationId.length];
+
+        ByteBuffer buff = ByteBuffer.wrap(response);
+        buff.put(messageSize);
+        buff.put(correlationId);
+
+        return buff.array();
     }
 }
