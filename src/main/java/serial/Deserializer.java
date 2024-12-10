@@ -18,6 +18,7 @@ public class Deserializer {
         final int first = inputStream.read();
         System.out.println("sad");
         if (first == -1) return null;
+        System.out.println("sad");
 
         final StringBuilder builder = new StringBuilder((char) first);
 
