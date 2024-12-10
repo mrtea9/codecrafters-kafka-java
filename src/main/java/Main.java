@@ -1,3 +1,8 @@
+import serial.Deserializer;
+import serial.Serializer;
+import util.TrackedInputStream;
+import util.TrackedOutputStream;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
@@ -5,10 +10,7 @@ import java.net.Socket;
 
 public class Main {
   public static void main(String[] args){
-    System.err.println("Logs from your program will appear here!");
 
-    // Uncomment this block to pass the first stage
-    // 
      ServerSocket serverSocket = null;
      Socket clientSocket = null;
      int port = 9092;
@@ -16,8 +18,22 @@ public class Main {
        serverSocket = new ServerSocket(port);
        serverSocket.setReuseAddress(true);
 
-       OutputStream outputStream = clientSocket.getOutputStream();
-       outputStream.write(new byte[] {0, 1, 2, 3, 0, 0, 0, 7});
+       while (true) {
+           final Socket socket = serverSocket.accept();
+           final var inputStream = new TrackedInputStream(socket.getInputStream());
+           final var outputStream = new TrackedOutputStream(socket.getOutputStream());
+
+           final var deserializer = new Deserializer(inputStream);
+           final var serializer = new Serializer(outputStream);
+
+           inputStream.begin();
+           final var request = deserializer.read();
+
+           System.out.println(request);
+
+       }
+
+
      } catch (IOException e) {
        System.out.println("IOException: " + e.getMessage());
      } finally {
