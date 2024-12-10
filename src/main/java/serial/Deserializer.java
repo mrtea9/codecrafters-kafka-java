@@ -22,7 +22,7 @@ public class Deserializer {
         final var dataInputStream = new DataInputStream(inputStream);
         //ByteBuffer wrap = ByteBuffer.wrap(test);
         System.out.println("message size " + dataInputStream.readInt());
-        System.out.println("api_key " + new String(dataInputStream.readNBytes(2), StandardCharsets.US_ASCII));
+        System.out.println("api_key " + dataInputStream.readInt());
 
 
         final StringBuilder builder = new StringBuilder();
