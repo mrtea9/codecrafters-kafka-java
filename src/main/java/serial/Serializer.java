@@ -18,6 +18,6 @@ public class Serializer {
     }
 
     public void write() throws IOException {
-        outputStream.write(new byte[] {0, 1, 2, 3, 0, 0, 0, 7});
+        outputStream.write("00000023001200046f7fc66100096b61666b612d636c69000a6b61666b612d636c6904302e3100".getBytes());
     }
 }
