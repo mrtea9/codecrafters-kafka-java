@@ -17,7 +17,7 @@ public class Serializer {
         outputStream.flush();
     }
 
-    public void write() throws IOException {
-        outputStream.write("000000006f7fc661".getBytes());
+    public void write(byte[] bytes) throws IOException {
+        outputStream.write(bytes);
     }
 }

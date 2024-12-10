@@ -17,11 +17,14 @@ public class Deserializer {
     }
 
 
-    public String read() throws IOException {
+    public byte[] read() throws IOException {
+
         final var messageSize = inputStream.readNBytes(4);
+        final var apiKey = inputStream.readNBytes(2);
+        final var apiVersion = inputStream.readNBytes(2);
+        final var correlationId = inputStream.readNBytes(4);
 
-        System.out.println(ByteBuffer.wrap(messageSize).getInt());
-
-        return "sad";
+        System.out.println();
+        return correlationId;
     }
 }
