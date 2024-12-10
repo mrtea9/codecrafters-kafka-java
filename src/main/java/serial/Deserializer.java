@@ -15,19 +15,17 @@ public class Deserializer {
 
 
     public String read() throws IOException {
-        final int first = inputStream.read();
-        System.out.println("sad");
-        if (first == -1) return null;
-        System.out.println("sad");
+        final byte[] first = inputStream.readNBytes(4);
+        System.out.println(new String(first));
 
-        final StringBuilder builder = new StringBuilder((char) first);
+
+        final StringBuilder builder = new StringBuilder();
 
         int value;
         while ((value = inputStream.read()) != -1) {
             System.out.println(value);
             builder.append((char) value);
         }
-        System.out.println("sad + " + builder.toString());
 
         return builder.toString();
     }
