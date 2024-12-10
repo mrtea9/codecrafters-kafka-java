@@ -5,6 +5,7 @@ import util.TrackedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 public class Deserializer {
 
@@ -20,7 +21,7 @@ public class Deserializer {
         final var dataInputStream = new DataInputStream(inputStream);
         //ByteBuffer wrap = ByteBuffer.wrap(test);
         System.out.println("message size " + dataInputStream.readInt());
-        System.out.println("api_key " + dataInputStream.readInt());
+        System.out.println("api_key " + ByteBuffer.wrap(dataInputStream.readNBytes(2)).getInt());
 
 
         final StringBuilder builder = new StringBuilder();
