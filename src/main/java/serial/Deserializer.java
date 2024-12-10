@@ -18,22 +18,10 @@ public class Deserializer {
 
 
     public String read() throws IOException {
-//        //final var test = inputStream.readNBytes(4);
-//        final var dataInputStream = new DataInputStream(inputStream);
-//        //ByteBuffer wrap = ByteBuffer.wrap(test);
-//        System.out.println("message size " + dataInputStream.readInt());
-//        System.out.println("api_key " + dataInputStream.readInt());
+        final var messageSize = inputStream.readNBytes(4);
 
+        System.out.println(ByteBuffer.wrap(messageSize).getInt());
 
-        final StringBuilder builder = new StringBuilder();
-
-        int value;
-        while ((value = inputStream.read()) != -1) {
-            //System.out.println("value = " + value + "; char value = " + (char) value);
-            builder.append((char) value);
-        }
-
-        //System.out.println(builder);
-        return builder.toString();
+        return "sad";
     }
 }
