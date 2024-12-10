@@ -28,7 +28,7 @@ public class Main {
            inputStream.begin();
            final var request = deserializer.read();
 
-           System.out.println(request);
+           //System.out.println(request);
        }
 
      } catch (IOException e) {
