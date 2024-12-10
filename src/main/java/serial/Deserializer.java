@@ -16,6 +16,7 @@ public class Deserializer {
 
     public String read() throws IOException {
         final int first = inputStream.read();
+        System.out.println("sad");
         if (first == -1) return null;
 
         final StringBuilder builder = new StringBuilder((char) first);
