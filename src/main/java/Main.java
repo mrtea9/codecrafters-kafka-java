@@ -8,6 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Main {
+
   public static void main(String[] args){
      ServerSocket serverSocket = null;
      Socket clientSocket = null;
@@ -28,9 +29,7 @@ public class Main {
            final var request = deserializer.read();
 
            System.out.println(request);
-
        }
-
 
      } catch (IOException e) {
        System.out.println("IOException: " + e.getMessage());
