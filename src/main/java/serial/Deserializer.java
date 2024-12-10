@@ -24,7 +24,7 @@ public class Deserializer {
 
         byte[] response = new byte[messageSize.length + correlationId.length];
 
-        System.out.println(ByteBuffer.wrap(apiVersion).getLong());
+        System.out.println(ByteBuffer.wrap(apiVersion).getInt());
 
         ByteBuffer buff = ByteBuffer.wrap(response);
         buff.put(messageSize);
