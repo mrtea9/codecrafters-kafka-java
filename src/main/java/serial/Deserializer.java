@@ -16,8 +16,8 @@ public class Deserializer {
 
 
     public String read() throws IOException {
-        final var test = new String(inputStream.readNBytes(4), StandardCharsets.US_ASCII);
-        System.out.println("message size " + test);
+        final var test = inputStream.readNBytes(4);
+        System.out.println("message size " + test.length);
 
 
         final StringBuilder builder = new StringBuilder();
