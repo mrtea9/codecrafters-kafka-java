@@ -16,9 +16,7 @@ public class Deserializer {
         this.inputStream = inputStream;
     }
 
-
     public byte[] read() throws IOException {
-
         final var messageSize = inputStream.readNBytes(4);
         final var apiKey = inputStream.readNBytes(2);
         final var apiVersion = inputStream.readNBytes(2);
@@ -28,6 +26,7 @@ public class Deserializer {
 
         ByteBuffer buff = ByteBuffer.wrap(response);
         buff.put(messageSize);
+        buff.put(apiVersion);
         buff.put(correlationId);
 
         return buff.array();
