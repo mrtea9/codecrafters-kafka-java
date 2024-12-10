@@ -2,6 +2,7 @@ package serial;
 
 import util.TrackedInputStream;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -17,9 +18,10 @@ public class Deserializer {
 
 
     public String read() throws IOException {
-        final var test = inputStream.readNBytes(4);
-        ByteBuffer wrap = ByteBuffer.wrap(test);
-        System.out.println("message size " + wrap.getInt());
+        //final var test = inputStream.readNBytes(4);
+        final var dataInputStream = new DataInputStream(inputStream);
+        //ByteBuffer wrap = ByteBuffer.wrap(test);
+        System.out.println("message size " + dataInputStream.readInt());
 
 
         final StringBuilder builder = new StringBuilder();
