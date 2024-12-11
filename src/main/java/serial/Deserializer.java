@@ -17,19 +17,24 @@ public class Deserializer {
     }
 
     public byte[] read() throws IOException {
-        final var messageSize = inputStream.readNBytes(4);
-        final var apiKey = inputStream.readNBytes(2);
-        final var apiVersion = inputStream.readNBytes(2);
-        final var correlationId = inputStream.readNBytes(4);
 
-        byte[] response = new byte[messageSize.length + correlationId.length];
+        final var request = inputStream.readAllBytes();
 
-        System.out.println(ByteBuffer.wrap(apiVersion).getShort());
+        System.out.println(request.length);
 
-        ByteBuffer buff = ByteBuffer.wrap(response);
-        buff.put(messageSize);
-        buff.put(correlationId);
+//        final var messageSize = inputStream.readNBytes(4);
+//        final var apiKey = inputStream.readNBytes(2);
+//        final var apiVersion = inputStream.readNBytes(2);
+//        final var correlationId = inputStream.readNBytes(4);
+//
+//        byte[] response = new byte[messageSize.length + correlationId.length];
+//
+//        System.out.println(ByteBuffer.wrap(apiVersion).getShort());
+//
+//        ByteBuffer buff = ByteBuffer.wrap(response);
+//        buff.put(messageSize);
+//        buff.put(correlationId);
 
-        return buff.array();
+        return null;
     }
 }
