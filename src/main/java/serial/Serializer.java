@@ -32,23 +32,9 @@ public class Serializer {
         buffer.putInt(messageSize);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        DataOutputStream dos = new DataOutputStream(baos);
 
-        // Write the request_length first
-        dos.writeInt(messageSize);
+        baos.write(messageSize);
 
-        // Write header and body fields in order
-        dos.writeShort(apiKey);
-        dos.writeShort(apiVersion);
-        dos.writeInt(correlationId);
 
-        dos.flush();  // Ensure all data is written to baos
-
-        // Get the final serialized request
-        byte[] requestBytes = baos.toByteArray();
-
-        // Send to the broker
-        outputStream.write(requestBytes);
-        outputStream.flush();
     }
 }
