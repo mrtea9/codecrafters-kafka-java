@@ -29,8 +29,7 @@ public class Serializer {
         final var apiKey = value.getApiKey();
         final var apiVersion = value.getApiVersion();
 
-        DataOutputStream dos = new DataOutputStream(outputStream);
 
-        dos.write(correlationId);
+        outputStream.write(messageSize);
     }
 }
