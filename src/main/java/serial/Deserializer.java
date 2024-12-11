@@ -7,6 +7,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 
 public class Deserializer {
@@ -18,19 +19,20 @@ public class Deserializer {
     }
 
     public KValue read() throws IOException {
+        var message = new ArrayList<Integer>();
 
         final var dataInputStream = new DataInputStream(inputStream);
 
-        final var messageSize = dataInputStream.readInt();
-        final var apiKey = dataInputStream.readShort();
-        final var apiVersion = dataInputStream.readShort();
-        final var correlationId = dataInputStream.readInt();
+        final int messageSize = dataInputStream.readInt();
+        final int apiKey = dataInputStream.readShort();
+        final int apiVersion = dataInputStream.readShort();
+        final int correlationId = dataInputStream.readInt();
 
-        System.out.println(messageSize);
-        System.out.println(apiKey);
-        System.out.println(apiVersion);
-        System.out.println(correlationId);
+        message.add(messageSize);
+        message.add(apiKey);
+        message.add(apiVersion);
+        message.add(correlationId);
 
-        return null;
+        return new KValue(message);
     }
 }
