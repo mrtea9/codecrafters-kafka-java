@@ -8,6 +8,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 public class Serializer {
 
@@ -40,6 +41,8 @@ public class Serializer {
         baos.write(apiVersion);
 
         byte[] requestBytes = baos.toByteArray();
+
+        System.out.println(Arrays.toString(requestBytes));
 
         outputStream.write(requestBytes);
         outputStream.flush();
