@@ -30,8 +30,6 @@ public class Main {
            serializer.write(request);
 
            System.out.println(request);
-
-          // System.out.println("request + " + request);
        }
 
      } catch (IOException e) {

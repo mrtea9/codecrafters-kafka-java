@@ -29,6 +29,8 @@ public class Serializer {
         final var apiKey = value.getApiKey();
         final var apiVersion = value.getApiVersion();
 
+        System.out.println(value);
+
         ByteBuffer buffer = ByteBuffer.allocate(12);
         buffer.putInt(messageSize);
 //        buffer.putInt(correlationId);
