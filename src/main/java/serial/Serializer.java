@@ -34,6 +34,10 @@ public class Serializer {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         baos.write(messageSize);
+        baos.write(correlationId);
+        baos.write(errorCode);
+        baos.write(apiKey);
+        baos.write(apiVersion);
 
         byte[] requestBytes = baos.toByteArray();
 
