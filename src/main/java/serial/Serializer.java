@@ -29,17 +29,6 @@ public class Serializer {
         final var apiKey = value.getApiKey();
         final var apiVersion = value.getApiVersion();
 
-        DataOutputStream dos = new DataOutputStream(outputStream);
-        int numberOfApiVersions = 0;
-        int throttleTimeMs = 0;
-
-        // The total size of the fields after the length field is 14 bytes
-        dos.writeInt(14);                 // length
-        dos.writeInt(correlationId);      // correlationId
-        dos.writeShort(errorCode);        // errorCode
-        dos.writeInt(numberOfApiVersions);// numberOfApiVersions = 0
-        dos.writeInt(throttleTimeMs);     // throttleTimeMs = 0
-
-        dos.flush();
+        System.out.println(value);
     }
 }
