@@ -34,10 +34,6 @@ public class Deserializer {
         message.add(apiVersion);
         message.add(correlationId);
 
-        var rest = dataInputStream.readAllBytes();
-
-        System.out.println(Arrays.toString(rest));
-
         return new KValue(message);
     }
 }
