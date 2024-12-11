@@ -28,7 +28,7 @@ public class Main {
            inputStream.begin();
            final var request = deserializer.read();
            System.out.println(request);
-           //serializer.write(request);
+           serializer.write(request);
 
           // System.out.println("request + " + request);
        }

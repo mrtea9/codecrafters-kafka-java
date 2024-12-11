@@ -5,6 +5,7 @@ import util.TrackedOutputStream;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
 
 public class Serializer {
 
@@ -19,7 +20,17 @@ public class Serializer {
     }
 
     public void write(KValue value) throws IOException {
+        final var messageSize = value.getMessageSize();
+        final var correlationId = value.getCorrelationId();
+        final var errorCode = value.getErrorCode();
 
-        //outputStream.write(bytes);
+        byte[] bytes = new byte[10];
+
+        ByteBuffer buff = ByteBuffer.wrap(bytes);
+        buff.put((byte) messageSize);
+        buff.put((byte) correlationId);
+        buff.put((byte) errorCode);
+
+        outputStream.write(buff.array());
     }
 }
