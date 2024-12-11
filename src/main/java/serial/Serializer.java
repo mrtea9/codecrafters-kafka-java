@@ -31,9 +31,9 @@ public class Serializer {
 
         ByteBuffer buffer = ByteBuffer.allocate(12);
         buffer.putInt(messageSize);
-        buffer.putInt(correlationId);
-        buffer.putShort((short) errorCode);
-        buffer.putShort((short) apiKey);
+//        buffer.putInt(correlationId);
+//        buffer.putShort((short) errorCode);
+//        buffer.putShort((short) apiKey);
 
         outputStream.write(buffer.array());
     }
