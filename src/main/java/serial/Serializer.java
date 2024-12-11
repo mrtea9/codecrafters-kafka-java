@@ -25,6 +25,9 @@ public class Serializer {
         final var errorCode = value.getErrorCode();
         final var apiKey = value.getApiKey();
 
+        ByteBuffer buffer = ByteBuffer.allocate(12);
+        buffer.putInt(messageSize);
 
+        outputStream.write(buffer.array());
     }
 }
