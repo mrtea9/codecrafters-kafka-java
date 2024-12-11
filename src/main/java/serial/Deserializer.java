@@ -32,6 +32,6 @@ public class Deserializer {
         buff.put(apiVersion);
         buff.put(correlationId);
 
-        return new KValue(message);
+        return new KValue(buff.array());
     }
 }
