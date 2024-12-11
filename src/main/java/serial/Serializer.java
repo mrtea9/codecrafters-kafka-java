@@ -29,11 +29,11 @@ public class Serializer {
         final var apiKey = value.getApiKey();
         final var apiVersion = value.getApiVersion();
 
-        ByteBuffer buffer = ByteBuffer.allocate(12);
-        buffer.putInt(messageSize);
-        buffer.putInt(correlationId);
+        ByteBuffer buffer = ByteBuffer.allocate(2);
+       // buffer.putInt(messageSize);
+       // buffer.putInt(correlationId);
         buffer.putShort((short) errorCode);
-        buffer.putShort((short) apiKey);
+       // buffer.putShort((short) apiKey);
 
         outputStream.write(buffer.array());
     }
