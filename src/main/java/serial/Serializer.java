@@ -29,11 +29,11 @@ public class Serializer {
         final var apiKey = value.getApiKey();
         final var apiVersion = value.getApiVersion();
 
-        try (DataOutputStream dos = new DataOutputStream(outputStream)) {
-            dos.writeInt(messageSize);
-            dos.writeInt(correlationId);
-            dos.writeShort((short) errorCode);
-            dos.writeShort((short) apiKey);
-        }
+        DataOutputStream dos = new DataOutputStream(outputStream);
+        dos.writeInt(messageSize);
+        dos.writeInt(correlationId);
+        dos.writeShort((short) errorCode);
+        dos.writeShort((short) apiKey);
+        dos.flush();
     }
 }
