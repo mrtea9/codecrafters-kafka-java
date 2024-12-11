@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Deserializer {
@@ -33,7 +34,9 @@ public class Deserializer {
         message.add(apiVersion);
         message.add(correlationId);
 
-        System.out.println(dataInputStream);
+        var rest = dataInputStream.readAllBytes();
+
+        System.out.println(Arrays.toString(rest));
 
         return new KValue(message);
     }
