@@ -20,6 +20,6 @@ public class Serializer {
 
     public void write(KValue value) throws IOException {
 
-        outputStream.write(bytes);
+        //outputStream.write(bytes);
     }
 }
