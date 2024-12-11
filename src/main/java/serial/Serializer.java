@@ -28,9 +28,9 @@ public class Serializer {
 
         try (DataOutputStream dos = new DataOutputStream(outputStream)) {
             dos.writeInt(messageSize);
-            dos.writeInt(correlationId);
-            dos.writeShort((short) errorCode);
-            dos.writeShort((short) apiKey);
+//            dos.writeInt(correlationId);
+//            dos.writeShort((short) errorCode);
+//            dos.writeShort((short) apiKey);
         }
     }
 }
