@@ -31,6 +31,6 @@ public class Serializer {
 
         DataOutputStream dos = new DataOutputStream(outputStream);
 
-        dos.write(messageSize);
+        dos.write(correlationId);
     }
 }
