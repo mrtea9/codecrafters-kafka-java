@@ -3,6 +3,7 @@ package serial;
 import type.KValue;
 import util.TrackedOutputStream;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
@@ -25,13 +26,11 @@ public class Serializer {
         final var errorCode = value.getErrorCode();
         final var apiKey = value.getApiKey();
 
-        ByteBuffer buffer = ByteBuffer.allocate(12);
-        buffer.putInt(messageSize);
-        buffer.putInt(correlationId);
-        buffer.putShort((short) errorCode);
-        buffer.putShort((short) apiKey);
-
-        // Write the entire byte array in one go
-        outputStream.write(buffer.array());
+        try (DataOutputStream dos = new DataOutputStream(outputStream)) {
+            dos.writeInt(messageSize);
+            dos.writeInt(correlationId);
+            dos.writeShort((short) errorCode);
+            dos.writeShort((short) apiKey);
+        }
     }
 }
