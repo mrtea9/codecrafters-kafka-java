@@ -24,13 +24,9 @@ public class Serializer {
         final var correlationId = value.getCorrelationId();
         final var errorCode = value.getErrorCode();
 
-        byte[] bytes = new byte[10];
 
-        ByteBuffer buff = ByteBuffer.wrap(bytes);
-        buff.put(String.valueOf(messageSize).getBytes());
-        buff.put(String.valueOf(correlationId).getBytes());
-        buff.put(String.valueOf(errorCode).getBytes());
-
-        outputStream.write(buff.array());
+        outputStream.write(messageSize);
+        outputStream.write(correlationId);
+        outputStream.write(errorCode);
     }
 }
