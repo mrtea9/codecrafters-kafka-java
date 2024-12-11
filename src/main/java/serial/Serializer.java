@@ -25,10 +25,13 @@ public class Serializer {
         final var errorCode = value.getErrorCode();
         final var apiKey = value.getApiKey();
 
+        ByteBuffer buffer = ByteBuffer.allocate(12);
+        buffer.putInt(messageSize);
+        buffer.putInt(correlationId);
+        buffer.putShort((short) errorCode);
+        buffer.putShort((short) apiKey);
 
-        outputStream.write(ByteBuffer.allocate(4).putInt(messageSize).array());
-        //outputStream.write(ByteBuffer.allocate(4).putInt(correlationId).array());
-        //outputStream.write(ByteBuffer.allocate(2).putShort((short) errorCode).array());
-        //outputStream.write(ByteBuffer.allocate(2).putShort((short) apiKey).array());
+        // Write the entire byte array in one go
+        outputStream.write(buffer.array());
     }
 }
