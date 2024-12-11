@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class Deserializer {
 
@@ -21,6 +22,7 @@ public class Deserializer {
         final var request = inputStream.readAllBytes();
 
         System.out.println(request.length);
+        System.out.println(Arrays.toString(request));
 
 //        final var messageSize = inputStream.readNBytes(4);
 //        final var apiKey = inputStream.readNBytes(2);
