@@ -3,7 +3,6 @@ package serial;
 import type.KValue;
 import util.TrackedOutputStream;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
@@ -26,12 +25,10 @@ public class Serializer {
         final var errorCode = value.getErrorCode();
         final var apiKey = value.getApiKey();
 
-        try (DataOutputStream dos = new DataOutputStream(outputStream)) {
-            //System.out.println("este");
-            dos.write(messageSize);
-            dos.writeInt(correlationId);
-            dos.writeShort((short) errorCode);
-            dos.writeShort((short) apiKey);
-        }
+
+        outputStream.write(ByteBuffer.allocate(4).putInt(messageSize).array());
+//        outputStream.write(ByteBuffer.allocate(4).putInt(correlationId).array());
+//        outputStream.write(ByteBuffer.allocate(2).putShort((short) errorCode).array());
+//        outputStream.write(ByteBuffer.allocate(2).putShort((short) apiKey).array());
     }
 }
