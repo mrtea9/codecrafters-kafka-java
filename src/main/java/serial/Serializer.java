@@ -26,9 +26,5 @@ public class Serializer {
         final var apiKey = value.getApiKey();
 
 
-        outputStream.write(ByteBuffer.allocate(4).putInt(35).array());
-//        outputStream.write(ByteBuffer.allocate(4).putInt(correlationId).array());
-//        outputStream.write(ByteBuffer.allocate(2).putShort((short) errorCode).array());
-//        outputStream.write(ByteBuffer.allocate(2).putShort((short) apiKey).array());
     }
 }
