@@ -27,6 +27,7 @@ public class Serializer {
 
         ByteBuffer buffer = ByteBuffer.allocate(12);
         buffer.putInt(messageSize);
+        System.out.println(messageSize);
 
         outputStream.write(buffer.array());
     }
