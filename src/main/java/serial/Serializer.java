@@ -27,9 +27,9 @@ public class Serializer {
         byte[] bytes = new byte[10];
 
         ByteBuffer buff = ByteBuffer.wrap(bytes);
-        buff.put((byte) messageSize);
-        buff.put((byte) correlationId);
-        buff.put((byte) errorCode);
+        buff.put(ByteBuffer.allocate(4).putInt(messageSize));
+        buff.put(ByteBuffer.allocate(4).putInt(correlationId));
+        buff.put(ByteBuffer.allocate(2).putShort((short) errorCode));
 
         outputStream.write(buff.array());
     }
