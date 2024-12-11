@@ -30,10 +30,12 @@ public class Serializer {
         final var apiVersion = value.getApiVersion();
 
         DataOutputStream dos = new DataOutputStream(outputStream);
+
         dos.writeInt(messageSize);
-        dos.writeShort((short) errorCode);
         dos.writeShort((short) apiKey);
+        dos.writeShort((short) apiVersion);
         dos.writeInt(correlationId);
+        dos.writeShort((short) errorCode);
         dos.flush();
     }
 }
