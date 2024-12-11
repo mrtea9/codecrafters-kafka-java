@@ -33,6 +33,8 @@ public class Deserializer {
         message.add(apiVersion);
         message.add(correlationId);
 
+        System.out.println(dataInputStream);
+
         return new KValue(message);
     }
 }
