@@ -43,6 +43,10 @@ public class KValue {
         return apiKey;
     }
 
+    public int getApiVersion() {
+        return apiVersion;
+    }
+
     @Override
     public String toString() {
         return content.toString();

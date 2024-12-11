@@ -3,10 +3,11 @@ package serial;
 import type.KValue;
 import util.TrackedOutputStream;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 
 public class Serializer {
 
@@ -21,28 +22,33 @@ public class Serializer {
     }
 
     public void write(KValue value) throws IOException {
-        short apiKey = 18;      // ApiVersions
-        short apiVersion = 4;
-        int myCorrelationId = value.getCorrelationId();
-        String clientId = "";   // empty client_id
+        final var messageSize = value.getMessageSize();
+        final var correlationId = value.getCorrelationId();
+        final var errorCode = value.getErrorCode();
+        final var apiKey = value.getApiKey();
+        final var apiVersion = value.getApiVersion();
 
-        byte[] clientIdBytes = clientId.getBytes(StandardCharsets.UTF_8);
-        short clientIdLength = (short) clientIdBytes.length;
+        ByteBuffer buffer = ByteBuffer.allocate(12);
+        buffer.putInt(messageSize);
 
-        // Calculate the request length (excluding the length field itself)
-        // api_key (2 bytes) + api_version (2 bytes) + correlation_id (4 bytes)
-        // + client_id_length (2 bytes) + client_id (N bytes)
-        int requestLength = 2 + 2 + 4 + 2 + clientIdBytes.length;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(baos);
 
-        ByteBuffer buffer = ByteBuffer.allocate(4 + requestLength);
-        buffer.putInt(requestLength);          // request_length
-        buffer.putShort(apiKey);               // api_key
-        buffer.putShort(apiVersion);           // api_version
-        buffer.putInt(myCorrelationId);        // correlation_id
-        buffer.putShort(clientIdLength);       // client_id_length
-        buffer.put(clientIdBytes);             // client_id
+        // Write the request_length first
+        dos.writeInt(messageSize);
 
-        outputStream.write(buffer.array());
+        // Write header and body fields in order
+        dos.writeShort(apiKey);
+        dos.writeShort(apiVersion);
+        dos.writeInt(correlationId);
+
+        dos.flush();  // Ensure all data is written to baos
+
+        // Get the final serialized request
+        byte[] requestBytes = baos.toByteArray();
+
+        // Send to the broker
+        outputStream.write(requestBytes);
         outputStream.flush();
     }
 }
