@@ -31,11 +31,23 @@ public class Serializer {
 
         DataOutputStream dos = new DataOutputStream(outputStream);
 
-        dos.writeInt(messageSize);
-        dos.writeShort((short) apiKey);
-        dos.writeShort((short) apiVersion);
-        dos.writeInt(correlationId);
-        dos.writeShort((short) errorCode);
+        int numberOfApiVersions = 0;
+        int throttleTimeMs = 0;
+
+        // Calculate total response size:
+        // correlationId: 4 bytes
+        // errorCode: 2 bytes
+        // numberOfApiVersions: 4 bytes
+        // no ApiVersions entries since numberOfApiVersions = 0
+        // throttleTimeMs: 4 bytes
+        // Total = 4 + 2 + 4 + 4 = 14 bytes
+        int responseSize = 14;
+
+        dos.writeInt(responseSize);     // total size excluding these 4 bytes
+        dos.writeInt(correlationId);    // correlationId
+        dos.writeShort(errorCode);      // errorCode
+        dos.writeInt(numberOfApiVersions); // numberOfApiVersions = 0
+        dos.writeInt(throttleTimeMs);   // throttleTimeMs = 0
         dos.flush();
     }
 }
