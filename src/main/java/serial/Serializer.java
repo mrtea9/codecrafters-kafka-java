@@ -35,6 +35,9 @@ public class Serializer {
 
         baos.write(messageSize);
 
+        byte[] requestBytes = baos.toByteArray();
 
+        outputStream.write(requestBytes);
+        outputStream.flush();
     }
 }
