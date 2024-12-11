@@ -3,6 +3,7 @@ package serial;
 import type.KValue;
 import util.TrackedInputStream;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -18,20 +19,18 @@ public class Deserializer {
 
     public KValue read() throws IOException {
 
-        final var messageSize = inputStream.readNBytes(4);
-        final var apiKey = inputStream.readNBytes(2);
-        final var apiVersion = inputStream.readNBytes(2);
-        final var correlationId = inputStream.readNBytes(4);
-        final var totalLength = messageSize.length + apiKey.length + apiVersion.length + correlationId.length;
+        final var dataInputStream = new DataInputStream(inputStream);
 
-        byte[] message = new byte[totalLength];
-        ByteBuffer buff = ByteBuffer.wrap(message);
+        final var messageSize = dataInputStream.readInt();
+        final var apiKey = dataInputStream.readShort();
+        final var apiVersion = dataInputStream.readShort();
+        final var correlationId = dataInputStream.readInt();
 
-        buff.put(messageSize);
-        buff.put(apiKey);
-        buff.put(apiVersion);
-        buff.put(correlationId);
+        System.out.println(messageSize);
+        System.out.println(apiKey);
+        System.out.println(apiVersion);
+        System.out.println(correlationId);
 
-        return new KValue(buff.array());
+        return null;
     }
 }
