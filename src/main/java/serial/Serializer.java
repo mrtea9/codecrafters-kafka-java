@@ -25,8 +25,8 @@ public class Serializer {
         final var errorCode = value.getErrorCode();
 
 
-        outputStream.write(messageSize);
-        outputStream.write(correlationId);
-        outputStream.write(errorCode);
+        outputStream.write(ByteBuffer.allocate(4).putInt(messageSize).array());
+        outputStream.write(ByteBuffer.allocate(4).putInt(correlationId).array());
+        outputStream.write(ByteBuffer.allocate(2).putInt(errorCode).array());
     }
 }
