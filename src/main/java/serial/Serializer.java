@@ -27,6 +27,6 @@ public class Serializer {
 
         outputStream.write(ByteBuffer.allocate(4).putInt(messageSize).array());
         outputStream.write(ByteBuffer.allocate(4).putInt(correlationId).array());
-        //outputStream.write(ByteBuffer.allocate(2).putInt(errorCode).array());
+        outputStream.write(ByteBuffer.allocate(2).putShort((short) errorCode).array());
     }
 }
