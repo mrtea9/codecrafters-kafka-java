@@ -1,5 +1,6 @@
 package serial;
 
+import type.KValue;
 import util.TrackedOutputStream;
 
 import java.io.IOException;
@@ -17,7 +18,8 @@ public class Serializer {
         outputStream.flush();
     }
 
-    public void write(byte[] bytes) throws IOException {
+    public void write(KValue value) throws IOException {
+
         outputStream.write(bytes);
     }
 }
