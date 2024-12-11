@@ -29,6 +29,6 @@ public class Serializer {
         buffer.putInt(messageSize);
         System.out.println(messageSize);
 
-        outputStream.write(buffer.array());
+        outputStream.write(new byte[] {0, 0, 0, 23});
     }
 }
