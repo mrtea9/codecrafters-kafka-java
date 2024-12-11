@@ -39,6 +39,10 @@ public class KValue {
         return errorCode;
     }
 
+    public int getApiKey() {
+        return apiKey;
+    }
+
     @Override
     public String toString() {
         return content.toString();
