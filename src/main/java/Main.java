@@ -25,9 +25,10 @@ public class Main {
        final var serializer = new Serializer(outputStream);
 
        while (true) {
-
            inputStream.begin();
+
            final var request = deserializer.read();
+           if (request == null) return;
 
            System.out.println(request);
 
