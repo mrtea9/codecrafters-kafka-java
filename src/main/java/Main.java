@@ -1,3 +1,4 @@
+import client.SocketClient;
 import serial.Deserializer;
 import serial.Serializer;
 import util.TrackedInputStream;
@@ -6,47 +7,29 @@ import util.TrackedOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ThreadFactory;
 
 public class Main {
 
-  public static void main(String[] args){
-     ServerSocket serverSocket = null;
-     Socket clientSocket = null;
-     int port = 9092;
-     try {
-       serverSocket = new ServerSocket(port);
-       serverSocket.setReuseAddress(true);
+    public static void main(String[] args) throws IOException {
 
-       final Socket socket = serverSocket.accept();
-       //final var inputStream = new TrackedInputStream(socket.getInputStream());
-       final var outputStream = new TrackedOutputStream(socket.getOutputStream());
+        final ThreadFactory threadFactory = Thread.ofVirtual().factory();
 
-       final var deserializer = new Deserializer(socket.getInputStream());
-       final var serializer = new Serializer(outputStream);
+        final int port = 9092;
 
-       while (true) {
-           //inputStream.begin();
+        System.out.println("port: %s".formatted(port));
 
-           final var request = deserializer.read();
-           if (request == null) return;
+        try (final ServerSocket serverSocket = new ServerSocket(port)) {
+            serverSocket.setReuseAddress(true);
 
-           System.out.println(request);
+            while (true) {
+                final Socket socket = serverSocket.accept();
+                final var client = new SocketClient(socket);
 
-           serializer.write(request);
+                final Thread thread = threadFactory.newThread(client);
+                thread.start();
+            }
+        }
+    }
 
-           outputStream.flush();
-       }
-
-     } catch (IOException e) {
-       System.out.println("IOException: " + e.getMessage());
-     } finally {
-       try {
-         if (clientSocket != null) {
-           clientSocket.close();
-         }
-       } catch (IOException e) {
-         System.out.println("IOException: " + e.getMessage());
-       }
-     }
-  }
 }
