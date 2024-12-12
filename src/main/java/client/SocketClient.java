@@ -45,7 +45,7 @@ public class SocketClient implements Runnable {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("error " + e.getMessage());
         }
     }
 }
