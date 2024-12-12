@@ -8,6 +8,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Arrays;
 
 public class Serializer {
@@ -31,12 +32,44 @@ public class Serializer {
 
         System.out.println(value);
 
-        ByteBuffer buffer = ByteBuffer.allocate(12);
-        buffer.putInt(messageSize);
+        ByteBuffer response = ByteBuffer.allocate(1024);
+        response.order(ByteOrder.BIG_ENDIAN);
+
+        ByteBuffer message = ByteBuffer.allocate(1024);
+        message.order(ByteOrder.BIG_ENDIAN);
+
+        message.putInt(correlationId);
+
+        if (errorCode == 0) {
+            message.putShort((short) 0);
+            message.put((byte) 2)
+                    .putShort((short) apiVersion)
+                    .putShort((short) 3)
+                    .putShort((short) 4)
+                    .put((byte) 0)
+                    .putInt(0)
+                    .put((byte) 0);
+        } else {
+            message.putShort((short) errorCode);
+        }
+
+        message.flip();
+
+        byte[] messageBytes = new byte[message.remaining()];
+        message.get(messageBytes);
+
+        response.putInt(messageBytes.length);
+        response.put(messageBytes);
+
+        outputStream.write(response.array());
+        outputStream.flush();
+
+        //ByteBuffer buffer = ByteBuffer.allocate(12);
+        //buffer.putInt(messageSize);
 //        buffer.putInt(correlationId);
 //        buffer.putShort((short) errorCode);
 //        buffer.putShort((short) apiKey);
 
-        outputStream.write(buffer.array());
+        //outputStream.write(buffer.array());
     }
 }
