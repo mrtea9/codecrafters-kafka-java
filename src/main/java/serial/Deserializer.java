@@ -36,7 +36,7 @@ public class Deserializer {
 
         System.out.println("este");
 
-        final var test = inputStream.readAllBytes();
+        final var test = inputStream.readNBytes(32);
 
         System.out.println(Arrays.toString(test));
 
