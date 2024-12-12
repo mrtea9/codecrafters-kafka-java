@@ -32,6 +32,7 @@ public class Deserializer {
         final var remaining = new byte[messageSize - 8];
         dis.readFully(remaining);
 
+
         message.add(messageSize);
         message.add(apiKey);
         message.add(apiVersion);

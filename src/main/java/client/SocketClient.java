@@ -38,7 +38,6 @@ public class SocketClient implements Runnable {
                 if (request == null) return;
 
                 System.out.println("Received " + request);
-
                 serializer.write(request);
 
                 outputStream.flush();
