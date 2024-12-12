@@ -15,8 +15,9 @@ public class Serializer {
 
     private final OutputStream outputStream;
 
-    public Serializer(OutputStream outputStream) {
+    public Serializer(OutputStream outputStream) throws IOException {
         this.outputStream = outputStream;
+        outputStream.write(new byte[] {0, 0, 0, 23});
     }
 
     public void flush() throws IOException {
