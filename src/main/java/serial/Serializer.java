@@ -15,9 +15,8 @@ public class Serializer {
 
     private final OutputStream outputStream;
 
-    public Serializer(OutputStream outputStream) throws IOException {
+    public Serializer(OutputStream outputStream) {
         this.outputStream = outputStream;
-        outputStream.write(new byte[] {0, 0, 0, 23});
     }
 
     public void flush() throws IOException {
@@ -36,7 +35,7 @@ public class Serializer {
         response.order(ByteOrder.BIG_ENDIAN);
         response.putInt(correlationId);
 
-        outputStream.write(correlationId);
+        outputStream.write(new byte[] {0, 0, 0, 23});
         //outputStream.flush();
 
         //ByteBuffer buffer = ByteBuffer.allocate(12);
