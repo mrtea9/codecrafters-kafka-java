@@ -20,7 +20,7 @@ public class Main {
        while (true) {
            final Socket socket = serverSocket.accept();
            final var inputStream = new TrackedInputStream(socket.getInputStream());
-           //socket.getOutputStream().write(new byte[] {0, 0, 0, 23});
+           socket.getOutputStream().write(new byte[] {0, 0, 0, 23});
            final var outputStream = new TrackedOutputStream(socket.getOutputStream());
 
            final var deserializer = new Deserializer(inputStream);
@@ -29,7 +29,7 @@ public class Main {
            inputStream.begin();
            final var request = deserializer.read();
 
-           outputStream.write(new byte[] {0, 0, 0, 23});
+           //outputStream.write(new byte[] {0, 0, 0, 23});
            //serializer.write(request);
 
           // System.out.println(request);
