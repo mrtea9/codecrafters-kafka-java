@@ -42,7 +42,7 @@ public class Serializer {
         if (errorCode == 0) {
             message.put((byte) 2)
                     .putShort((short) apiVersion)
-                    .putShort((short) 3)
+                    .putShort((short) 2)
                     .putShort((short) 4)
                     .put((byte) 0)
                     .putInt(0)
