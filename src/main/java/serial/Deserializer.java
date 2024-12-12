@@ -22,15 +22,14 @@ public class Deserializer {
     public KValue read() throws IOException {
         var message = new ArrayList<Integer>();
 
-        final var messageSizeBytes = inputStream.readNBytes(4);
-        final var apiKeyBytes = inputStream.readNBytes(2);
-        final var apiVersionBytes = inputStream.readNBytes(2);
-        final var correlationIdBytes = inputStream.readNBytes(4);
+        DataInputStream dis = new DataInputStream(inputStream);
 
-        final int messageSize = ByteBuffer.wrap(messageSizeBytes).getInt();
-        final int apiKey = ByteBuffer.wrap(apiKeyBytes).getShort();
-        final int apiVersion = ByteBuffer.wrap(apiVersionBytes).getShort();
-        final int correlationId = ByteBuffer.wrap(correlationIdBytes).getInt();
+        final int messageSize = dis.readInt();
+        final int apiKey = dis.readShort();
+        final int apiVersion = dis.readShort();
+        final int correlationId = dis.readInt();
+
+        System.out.println("message size = " + messageSize);
 
         message.add(messageSize);
         message.add(apiKey);
