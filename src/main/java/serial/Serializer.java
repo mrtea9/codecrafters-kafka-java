@@ -24,20 +24,39 @@ public class Serializer {
     }
 
     public void write(KValue value) throws IOException {
-        final var messageSize = value.getMessageSize();
         final var correlationId = value.getCorrelationId();
         final var errorCode = value.getErrorCode();
         final var apiKey = value.getApiKey();
         final var apiVersion = value.getApiVersion();
 
-        ByteBuffer buffer = ByteBuffer.allocate(14);
-        buffer.putInt(messageSize);
-        buffer.putInt(correlationId);
-        buffer.putShort((short) errorCode);
-        buffer.putShort((short) apiKey);
-        buffer.putShort((short) apiVersion);
+        ByteBuffer response = ByteBuffer.allocate(1024);
+        response.order(ByteOrder.BIG_ENDIAN);
 
-        // Write the entire byte array in one go
-        outputStream.write(buffer.array());
+        ByteBuffer message = ByteBuffer.allocate(1024);
+        response.order(ByteOrder.BIG_ENDIAN);
+
+        message.putInt(correlationId);
+
+        message.putShort((short) errorCode);
+
+        if (errorCode == 0) {
+            message.put((byte) 2)
+                    .putShort((short) apiVersion)
+                    .putShort((short) 3)
+                    .putShort((short) 4)
+                    .put((byte) 0)
+                    .putInt(0)
+                    .put((byte) 0);
+        }
+
+        message.flip();
+
+        byte[] messageBytes = new byte[message.remaining()];
+        message.get(messageBytes);
+
+        response.putInt(messageBytes.length);
+        response.put(messageBytes);
+
+        outputStream.write(response.array());
     }
 }
