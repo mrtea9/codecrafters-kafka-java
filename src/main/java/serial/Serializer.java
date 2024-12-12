@@ -24,39 +24,58 @@ public class Serializer {
     }
 
     public void write(KValue value) throws IOException {
-        final var correlationId = value.getCorrelationId();
+
+        final var response = createResponse(value);
+
+        outputStream.write(response);
+    }
+
+    private byte[] createResponse(KValue value) {
+        final var header = createHeader(value.getCorrelationId());
+        final var body = createBody(value);
+
+        ByteBuffer response = ByteBuffer.allocate(4 + header.length + body.length);
+        response.order(ByteOrder.BIG_ENDIAN);
+
+        response.putInt(header.length + body.length);
+        response.put(header);
+        response.put(body);
+
+        return response.array();
+    }
+
+    private byte[] createHeader(int correlationId) {
+        ByteBuffer header = ByteBuffer.allocate(4);
+        header.putInt(correlationId);
+
+        return header.array();
+    }
+
+    private byte[] createBody(KValue value) {
         final var errorCode = value.getErrorCode();
-        final var apiKey = value.getApiKey();
-        final var apiVersion = value.getApiVersion();
 
-        ByteBuffer response = ByteBuffer.allocate(1024);
-        response.order(ByteOrder.BIG_ENDIAN);
+        ByteBuffer body = ByteBuffer.allocate(28);
 
-        ByteBuffer message = ByteBuffer.allocate(1024);
-        response.order(ByteOrder.BIG_ENDIAN);
-
-        message.putInt(correlationId);
-
-        message.putShort((short) errorCode);
+        body.putShort((short) errorCode);
 
         if (errorCode == 0) {
-            message.put((byte) 2)
-                    .putShort((short) apiKey)
-                    .putShort((short) 2)
-                    .putShort((short) apiVersion)
-                    .put((byte) 0)
-                    .putInt(0)
-                    .put((byte) 0);
+            final var apiKey = value.getApiKey();
+            final var apiVersion = value.getApiVersion();
+
+            body.put((byte) 2);
+            body.putShort((short) apiKey);
+            body.putShort((short) 2);
+            body.putShort((short) apiVersion);
+            body.put((byte) 0);
+            body.putInt(0);
+            body.put((byte) 0);
         }
 
-        message.flip();
+        body.flip();
 
-        byte[] messageBytes = new byte[message.remaining()];
-        message.get(messageBytes);
+        byte[] bodyBytes = new byte[body.remaining()];
+        body.get(bodyBytes);
 
-        response.putInt(messageBytes.length);
-        response.put(messageBytes);
-
-        outputStream.write(response.array());
+        return bodyBytes;
     }
 }
