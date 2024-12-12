@@ -35,10 +35,8 @@ public class Serializer {
         response.order(ByteOrder.BIG_ENDIAN);
         response.putInt(correlationId);
 
-        System.out.println(Arrays.toString(response.array()));
-
         outputStream.write(correlationId);
-        outputStream.flush();
+        //outputStream.flush();
 
         //ByteBuffer buffer = ByteBuffer.allocate(12);
         //buffer.putInt(messageSize);
