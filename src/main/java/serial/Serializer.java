@@ -34,6 +34,7 @@ public class Serializer {
         buffer.putInt(messageSize);
         buffer.putInt(correlationId);
         buffer.putShort((short) errorCode);
+        buffer.putShort((short) apiVersion);
         buffer.putShort((short) apiKey);
 
         // Write the entire byte array in one go
