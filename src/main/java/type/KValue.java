@@ -21,7 +21,6 @@ public class KValue {
         this.errorCode = (apiVersion > 0 && apiVersion < 5) ? 0 : 35;
 
         this.content = List.of(messageSize, apiKey, apiVersion, correlationId, errorCode);
-        content.clear();
     }
 
     public List<Integer> getContent() {
