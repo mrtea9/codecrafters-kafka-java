@@ -31,19 +31,11 @@ public class Serializer {
         final var apiVersion = value.getApiVersion();
 
 
-        ByteBuffer response = ByteBuffer.allocate(1024);
-        response.order(ByteOrder.BIG_ENDIAN);
-        response.putInt(correlationId);
-
-        outputStream.write(new byte[] {0, 0, 0, 23});
-        //outputStream.flush();
-
-        //ByteBuffer buffer = ByteBuffer.allocate(12);
-        //buffer.putInt(messageSize);
-//        buffer.putInt(correlationId);
-//        buffer.putShort((short) errorCode);
-//        buffer.putShort((short) apiKey);
-
-        //outputStream.write(buffer.array());
+        try (DataOutputStream dos = new DataOutputStream(outputStream)) {
+            dos.writeInt(messageSize);
+            dos.writeInt(correlationId);
+            dos.writeShort((short) errorCode);
+            dos.writeShort((short) apiKey);
+        }
     }
 }
