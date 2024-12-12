@@ -30,40 +30,12 @@ public class Serializer {
         final var apiKey = value.getApiKey();
         final var apiVersion = value.getApiVersion();
 
-        System.out.println(value);
 
         ByteBuffer response = ByteBuffer.allocate(1024);
         response.order(ByteOrder.BIG_ENDIAN);
+        response.putInt(correlationId);
 
-        ByteBuffer message = ByteBuffer.allocate(1024);
-        message.order(ByteOrder.BIG_ENDIAN);
-
-        message.putInt(correlationId);
-
-        if (errorCode == 0) {
-            message.putShort((short) 0);
-            message.put((byte) 2)
-                    .putShort((short) apiVersion)
-                    .putShort((short) 3)
-                    .putShort((short) 4)
-                    .put((byte) 0)
-                    .putInt(0)
-                    .put((byte) 0);
-        } else {
-            message.putShort((short) errorCode);
-        }
-
-        message.flip();
-
-        byte[] messageBytes = new byte[message.remaining()];
-        message.get(messageBytes);
-
-        System.out.println("message byte length: " + messageBytes.length);
-        System.out.println("message bytes: " + Arrays.toString(messageBytes));
         System.out.println(Arrays.toString(response.array()));
-
-        response.putInt(messageBytes.length);
-        response.put(messageBytes);
 
         outputStream.write(response.array());
         outputStream.flush();
