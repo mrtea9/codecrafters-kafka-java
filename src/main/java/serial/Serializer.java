@@ -37,7 +37,7 @@ public class Serializer {
 
         System.out.println(Arrays.toString(response.array()));
 
-        outputStream.write(response.array());
+        outputStream.write(correlationId);
         outputStream.flush();
 
         //ByteBuffer buffer = ByteBuffer.allocate(12);
