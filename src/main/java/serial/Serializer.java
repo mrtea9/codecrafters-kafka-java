@@ -1,15 +1,11 @@
 package serial;
 
 import type.KValue;
-import util.TrackedOutputStream;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
 
 public class Serializer {
 
