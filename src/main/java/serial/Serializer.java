@@ -57,7 +57,7 @@ public class Serializer {
             final var apiKey = value.getApiKey();
             final var apiVersion = value.getApiVersion();
 
-            body.put((byte) 2);
+            body.put((byte) 3);
             body.putShort((short) apiKey);
             body.putShort((short) 2);
             body.putShort((short) apiVersion);
