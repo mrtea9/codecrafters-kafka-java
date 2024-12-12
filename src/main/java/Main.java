@@ -16,6 +16,7 @@ public class Main {
      try {
        serverSocket = new ServerSocket(port);
        serverSocket.setReuseAddress(true);
+
        final Socket socket = serverSocket.accept();
        final var inputStream = new TrackedInputStream(socket.getInputStream());
        final var outputStream = new TrackedOutputStream(socket.getOutputStream());
@@ -31,6 +32,8 @@ public class Main {
            System.out.println(request);
 
            serializer.write(request);
+
+           outputStream.flush();
        }
 
      } catch (IOException e) {
