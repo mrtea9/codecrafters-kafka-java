@@ -22,23 +22,23 @@ public class Deserializer {
     public KValue read() throws IOException {
         var message = new ArrayList<Integer>();
 
-        final var dataInputStream = new DataInputStream(inputStream);
-
-        final int messageSize = dataInputStream.readInt();
-        final int apiKey = dataInputStream.readShort();
-        final int apiVersion = dataInputStream.readShort();
-        final int correlationId = dataInputStream.readInt();
-
-        message.add(messageSize);
-        message.add(apiKey);
-        message.add(apiVersion);
-        message.add(correlationId);
+//        final var dataInputStream = new DataInputStream(inputStream);
+//
+//        final int messageSize = dataInputStream.readInt();
+//        final int apiKey = dataInputStream.readShort();
+//        final int apiVersion = dataInputStream.readShort();
+//        final int correlationId = dataInputStream.readInt();
+//
+//        message.add(messageSize);
+//        message.add(apiKey);
+//        message.add(apiVersion);
+//        message.add(correlationId);
 
         final var test = inputStream.readAllBytes();
 
         System.out.println(Arrays.toString(test));
 
-        System.out.println(message);
+        //System.out.println(message);
 
         return new KValue(message);
     }
