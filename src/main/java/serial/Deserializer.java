@@ -34,6 +34,8 @@ public class Deserializer {
 //        message.add(apiVersion);
 //        message.add(correlationId);
 
+        System.out.println("este");
+
         final var test = inputStream.readAllBytes();
 
         System.out.println(Arrays.toString(test));
