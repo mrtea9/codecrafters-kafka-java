@@ -58,6 +58,9 @@ public class Serializer {
         byte[] messageBytes = new byte[message.remaining()];
         message.get(messageBytes);
 
+        System.out.println("message byte length: " + messageBytes.length);
+        System.out.println("message bytes: " + Arrays.toString(messageBytes));
+
         response.putInt(messageBytes.length);
         response.put(messageBytes);
 
