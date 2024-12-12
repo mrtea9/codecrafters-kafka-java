@@ -35,7 +35,6 @@ public class SocketClient implements Runnable {
             while (true) {
 
                 final var request = deserializer.read();
-                System.out.println("Received " + request);
                 if (request == null) return;
 
                 System.out.println("Received " + request);

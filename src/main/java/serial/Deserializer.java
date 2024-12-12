@@ -37,8 +37,6 @@ public class Deserializer {
         message.add(apiVersion);
         message.add(correlationId);
 
-        System.out.println(message);
-
         return new KValue(message);
     }
 }
