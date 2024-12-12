@@ -10,7 +10,7 @@ public class TrackedOutputStream extends OutputStream {
 
     public TrackedOutputStream(OutputStream outputStream) throws IOException {
         this.delegate = outputStream;
-        //this.delegate.write(new byte[] {0, 0, 0, 23});
+        this.delegate.write(new byte[] {0, 0, 0, 17});
     }
 
     @Override
