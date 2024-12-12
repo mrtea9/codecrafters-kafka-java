@@ -60,6 +60,7 @@ public class Serializer {
 
         System.out.println("message byte length: " + messageBytes.length);
         System.out.println("message bytes: " + Arrays.toString(messageBytes));
+        System.out.println(Arrays.toString(response.array()));
 
         response.putInt(messageBytes.length);
         response.put(messageBytes);
