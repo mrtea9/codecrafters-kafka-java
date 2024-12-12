@@ -16,14 +16,14 @@ public class Main {
      try {
        serverSocket = new ServerSocket(port);
        serverSocket.setReuseAddress(true);
+       final Socket socket = serverSocket.accept();
+       final var inputStream = new TrackedInputStream(socket.getInputStream());
+       final var outputStream = new TrackedOutputStream(socket.getOutputStream());
+
+       final var deserializer = new Deserializer(inputStream);
+       final var serializer = new Serializer(outputStream);
 
        while (true) {
-           final Socket socket = serverSocket.accept();
-           final var inputStream = new TrackedInputStream(socket.getInputStream());
-           final var outputStream = new TrackedOutputStream(socket.getOutputStream());
-
-           final var deserializer = new Deserializer(inputStream);
-           final var serializer = new Serializer(outputStream);
 
            inputStream.begin();
            final var request = deserializer.read();
@@ -31,7 +31,6 @@ public class Main {
            System.out.println(request);
 
            serializer.write(request);
-           continue;
        }
 
      } catch (IOException e) {
