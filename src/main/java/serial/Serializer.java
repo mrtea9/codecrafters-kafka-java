@@ -24,7 +24,6 @@ public class Serializer {
     }
 
     public void write(KValue value) throws IOException {
-
         final var response = createResponse(value);
 
         outputStream.write(response);
