@@ -23,7 +23,6 @@ public class Deserializer {
         var message = new ArrayList<Integer>();
 
         final var dataInputStream = new DataInputStream(inputStream);
-        final var test = dataInputStream.readAllBytes();
 
         System.out.println(Arrays.toString(test));
 
@@ -32,8 +31,9 @@ public class Deserializer {
         final int apiVersion = dataInputStream.readShort();
         final int correlationId = dataInputStream.readInt();
 
-        System.out.println(Arrays.toString(test));
+        final var test = dataInputStream.readAllBytes();
 
+        System.out.println(Arrays.toString(test));
         message.add(messageSize);
         message.add(apiKey);
         message.add(apiVersion);
