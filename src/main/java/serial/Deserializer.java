@@ -24,8 +24,6 @@ public class Deserializer {
 
         final var dataInputStream = new DataInputStream(inputStream);
 
-        System.out.println(Arrays.toString(test));
-
         final int messageSize = dataInputStream.readInt();
         final int apiKey = dataInputStream.readShort();
         final int apiVersion = dataInputStream.readShort();
