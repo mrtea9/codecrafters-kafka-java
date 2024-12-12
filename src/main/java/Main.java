@@ -31,6 +31,7 @@ public class Main {
            System.out.println(request);
 
            serializer.write(request);
+           continue;
        }
 
      } catch (IOException e) {
