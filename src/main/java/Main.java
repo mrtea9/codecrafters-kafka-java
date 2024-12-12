@@ -25,7 +25,7 @@ public class Main {
        final var serializer = new Serializer(outputStream);
 
        while (true) {
-           inputStream.begin();
+           //inputStream.begin();
 
            final var request = deserializer.read();
            if (request == null) return;
