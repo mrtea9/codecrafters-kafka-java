@@ -23,6 +23,8 @@ public class TrackedInputStream extends InputStream {
 
         if (value != -1) read++;
 
+        System.out.println(value);
+
         return value;
     }
 
