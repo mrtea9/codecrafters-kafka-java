@@ -21,10 +21,10 @@ public class Main {
            final Socket socket = serverSocket.accept();
            final var inputStream = new TrackedInputStream(socket.getInputStream());
            //socket.getOutputStream().write(new byte[] {0, 0, 0, 23});
-           //final var outputStream = new TrackedOutputStream(socket.getOutputStream());
+           final var outputStream = new TrackedOutputStream(socket.getOutputStream());
 
            final var deserializer = new Deserializer(inputStream);
-           final var serializer = new Serializer(socket.getOutputStream());
+           final var serializer = new Serializer(outputStream);
 
            inputStream.begin();
            final var request = deserializer.read();
