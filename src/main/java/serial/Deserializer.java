@@ -15,7 +15,7 @@ public class Deserializer {
 
     private final InputStream inputStream;
 
-    public Deserializer(TrackedInputStream inputStream) {
+    public Deserializer(InputStream inputStream) {
         this.inputStream = inputStream;
     }
 
