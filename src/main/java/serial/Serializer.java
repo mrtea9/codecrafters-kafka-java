@@ -30,7 +30,7 @@ public class Serializer {
         final var apiKey = value.getApiKey();
         final var apiVersion = value.getApiVersion();
 
-        ByteBuffer buffer = ByteBuffer.allocate(12);
+        ByteBuffer buffer = ByteBuffer.allocate(14);
         buffer.putInt(messageSize);
         buffer.putInt(correlationId);
         buffer.putShort((short) errorCode);
