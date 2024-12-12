@@ -61,6 +61,7 @@ public class Serializer {
             body.putShort((short) apiKey);
             body.putShort((short) 2);
             body.putShort((short) apiVersion);
+            body.put((byte) 0);
             body.putShort((short) 75);
             body.putShort((short) 0);
             body.putShort((short) 0);
