@@ -28,8 +28,8 @@ public class Deserializer {
         final var correlationIdBytes = inputStream.readNBytes(4);
 
         final int messageSize = ByteBuffer.wrap(messageSizeBytes).getInt();
-        final int apiKey = ByteBuffer.wrap(apiKeyBytes).getInt();
-        final int apiVersion = ByteBuffer.wrap(apiVersionBytes).getInt();
+        final int apiKey = ByteBuffer.wrap(apiKeyBytes).getShort();
+        final int apiVersion = ByteBuffer.wrap(apiVersionBytes).getShort();
         final int correlationId = ByteBuffer.wrap(correlationIdBytes).getInt();
 
         message.add(messageSize);
