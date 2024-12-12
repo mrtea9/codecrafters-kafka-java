@@ -8,8 +8,9 @@ public class TrackedOutputStream extends OutputStream {
     private final OutputStream delegate;
     private long written;
 
-    public TrackedOutputStream(OutputStream outputStream) {
+    public TrackedOutputStream(OutputStream outputStream) throws IOException {
         this.delegate = outputStream;
+        this.delegate.write(new byte[] {0, 0, 0, 23});
     }
 
     @Override
