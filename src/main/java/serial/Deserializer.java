@@ -28,9 +28,11 @@ public class Deserializer {
         final int apiKey = dis.readShort();
         final int apiVersion = dis.readShort();
         final int correlationId = dis.readInt();
+        final int clientLength = dis.readShort();
 
+        System.out.println(clientLength);
 
-        final var remaining = new byte[messageSize - 8];
+        final var remaining = new byte[messageSize - 10];
         dis.readFully(remaining);
 
         message.add(messageSize);
