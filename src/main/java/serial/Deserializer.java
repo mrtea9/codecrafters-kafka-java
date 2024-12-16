@@ -26,7 +26,7 @@ public class Deserializer {
 
         parseHeader(header);
 
-        final var remaining = new byte[messageSize - 10];
+        final var remaining = new byte[messageSize - 22];
         inputStream.readFully(remaining);
 
         return new KValue(header);
@@ -38,9 +38,6 @@ public class Deserializer {
         final int correlationId = inputStream.readInt();
         final int clientLength = inputStream.readShort();
         final var clientId = inputStream.readNBytes(clientLength);
-
-        System.out.println(clientLength);
-        System.out.println(new String(clientId, StandardCharsets.US_ASCII));
 
         header.add(apiKey);
         header.add(apiVersion);
