@@ -5,6 +5,7 @@ import type.KValue;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,10 @@ public class Deserializer {
         final int apiVersion = inputStream.readShort();
         final int correlationId = inputStream.readInt();
         final int clientLength = inputStream.readShort();
+        final var clientId = inputStream.readNBytes(clientLength);
 
         System.out.println(clientLength);
+        System.out.println(new String(clientId, StandardCharsets.US_ASCII));
 
         header.add(apiKey);
         header.add(apiVersion);
