@@ -1,45 +1,46 @@
 package serial;
 
 import type.KValue;
-import util.TrackedInputStream;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 
 public class Deserializer {
 
-    private final InputStream inputStream;
+    private final DataInputStream inputStream;
 
     public Deserializer(InputStream inputStream) {
-        this.inputStream = inputStream;
+        this.inputStream = new DataInputStream(inputStream);
     }
 
     public KValue read() throws IOException {
-        var message = new ArrayList<Integer>();
+        List<Integer> header = new ArrayList<>();
 
-        DataInputStream dis = new DataInputStream(inputStream);
+        final int messageSize = inputStream.readInt();
+        header.add(messageSize);
 
-        final int messageSize = dis.readInt();
-        final int apiKey = dis.readShort();
-        final int apiVersion = dis.readShort();
-        final int correlationId = dis.readInt();
-        final int clientLength = dis.readShort();
+        parseHeader(header);
+
+        final var remaining = new byte[messageSize - 10];
+        inputStream.readFully(remaining);
+
+        return new KValue(header);
+    }
+
+    private void parseHeader(List<Integer> header) throws IOException {
+        final int apiKey = inputStream.readShort();
+        final int apiVersion = inputStream.readShort();
+        final int correlationId = inputStream.readInt();
+        final int clientLength = inputStream.readShort();
 
         System.out.println(clientLength);
 
-        final var remaining = new byte[messageSize - 10];
-        dis.readFully(remaining);
-
-        message.add(messageSize);
-        message.add(apiKey);
-        message.add(apiVersion);
-        message.add(correlationId);
-
-        return new KValue(message);
+        header.add(apiKey);
+        header.add(apiVersion);
+        header.add(correlationId);
     }
 }
