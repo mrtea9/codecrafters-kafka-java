@@ -26,10 +26,17 @@ public class Deserializer {
 
         parseHeader(header);
 
-        final var remaining = new byte[messageSize - 22];
+        parseBody();
+
+        final var remaining = new byte[messageSize - 23];
         inputStream.readFully(remaining);
 
         return new KValue(header);
+    }
+
+    private void parseBody() throws IOException {
+        final var arrayLength = inputStream.readByte();
+        System.out.println(arrayLength);
     }
 
     private void parseHeader(List<Integer> header) throws IOException {
@@ -38,6 +45,7 @@ public class Deserializer {
         final int correlationId = inputStream.readInt();
         final int clientLength = inputStream.readShort();
         final var clientId = inputStream.readNBytes(clientLength);
+        inputStream.readByte(); // skip tag buffer
 
         header.add(apiKey);
         header.add(apiVersion);
