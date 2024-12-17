@@ -44,6 +44,8 @@ public class Deserializer {
 
         final var partitionLimit = inputStream.readInt();
 
+        System.out.println("partitionLimit = " + partitionLimit);
+
         inputStream.readByte(); // skip cursor
         inputStream.readByte(); // skip tag buffer
     }
