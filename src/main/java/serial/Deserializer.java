@@ -29,8 +29,8 @@ public class Deserializer {
 
         parseBody();
 
-        final var remaining = new byte[messageSize - 49];
-        inputStream.readFully(remaining);
+//        final var remaining = new byte[messageSize - 49];
+//        inputStream.readFully(remaining);
 
         return new KValue(header);
     }
