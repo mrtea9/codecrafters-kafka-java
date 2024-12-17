@@ -5,30 +5,22 @@ import java.util.List;
 
 public class KValue {
 
-    private final int messageSize;
-    private final int apiKey;
-    private final int apiVersion;
-    private final int correlationId;
-    private final int errorCode;
+    private int apiKey;
+    private int apiVersion;
+    private int correlationId;
+    private int errorCode;
 
-    private List<Integer> content = new ArrayList<>();
+    public void setApiKey(int apiKey) {
+        this.apiKey = apiKey;
+    }
 
-    public KValue(List<Integer> content) {
-        this.messageSize = content.get(0);
-        this.apiKey = content.get(1);
-        this.apiVersion = content.get(2);
-        this.correlationId = content.get(3);
+    public void setApiVersion(int apiVersion) {
+        this.apiVersion = apiVersion;
         this.errorCode = (apiVersion > 0 && apiVersion < 5) ? 0 : 35;
-
-        this.content = List.of(messageSize, apiKey, apiVersion, correlationId, errorCode);
     }
 
-    public List<Integer> getContent() {
-        return content;
-    }
-
-    public int getMessageSize() {
-        return messageSize;
+    public void setCorrelationId(int correlationId) {
+        this.correlationId = correlationId;
     }
 
     public int getCorrelationId() {
@@ -49,6 +41,6 @@ public class KValue {
 
     @Override
     public String toString() {
-        return content.toString();
+        return "sad".formatted();
     }
 }

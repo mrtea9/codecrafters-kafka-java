@@ -19,23 +19,22 @@ public class Deserializer {
     }
 
     public KValue read() throws IOException {
-        List<Integer> header = new ArrayList<>();
+        var value = new KValue();
 
         final int messageSize = inputStream.readInt();
         System.out.println("messageSize = " + messageSize);
-        header.add(messageSize);
 
-        parseHeader(header);
+        parseHeader(value);
 
-        parseBody();
+        parseBody(value);
 
 //        final var remaining = new byte[messageSize - 49];
 //        inputStream.readFully(remaining);
 
-        return new KValue(header);
+        return value;
     }
 
-    private void parseBody() throws IOException {
+    private void parseBody(KValue value) throws IOException {
         final var arrayLength = readLength() - 1;
         System.out.println("array length = " + arrayLength);
         final var topicName = readString();
@@ -50,7 +49,7 @@ public class Deserializer {
         inputStream.readByte(); // skip tag buffer
     }
 
-    private void parseHeader(List<Integer> header) throws IOException {
+    private void parseHeader(KValue value) throws IOException {
         final int apiKey = inputStream.readShort();
         final int apiVersion = inputStream.readShort();
         final int correlationId = inputStream.readInt();
@@ -58,9 +57,9 @@ public class Deserializer {
         final var clientId = inputStream.readNBytes(clientLength);
         inputStream.readByte(); // skip tag buffer
 
-        header.add(apiKey);
-        header.add(apiVersion);
-        header.add(correlationId);
+        value.setApiKey(apiKey);
+        value.setApiVersion(apiVersion);
+        value.setCorrelationId(correlationId);
     }
 
     private String readString() throws IOException {
