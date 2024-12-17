@@ -21,7 +21,7 @@ public class Deserializer {
     public KValue read() throws IOException {
         List<Integer> header = new ArrayList<>();
 
-        final int messageSize = inputStream.readInt();
+        final int messageSize = inputStream.readInt() - 1;
         System.out.println("messageSize = " + messageSize);
         header.add(messageSize);
 
