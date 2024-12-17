@@ -29,7 +29,7 @@ public class Deserializer {
 
         parseBody();
 
-        final var remaining = new byte[messageSize - 22];
+        final var remaining = new byte[messageSize - 24];
         inputStream.readFully(remaining);
 
         return new KValue(header);
