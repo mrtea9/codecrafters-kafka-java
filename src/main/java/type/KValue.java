@@ -41,6 +41,9 @@ public class KValue {
 
     @Override
     public String toString() {
-        return "sad".formatted();
+        return ("Correlation ID: %d" +
+                "Error Code: %d" +
+                "Api Key: %d" +
+                "Api Version: %d").formatted(correlationId, errorCode, apiKey, apiVersion);
     }
 }
