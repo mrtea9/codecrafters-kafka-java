@@ -21,7 +21,7 @@ public class Deserializer {
     public KValue read() throws IOException {
         List<Integer> header = new ArrayList<>();
 
-        final int messageSize = inputStream.readInt() - 1;
+        final int messageSize = inputStream.readInt();
         System.out.println("messageSize = " + messageSize);
         header.add(messageSize);
 
@@ -29,7 +29,7 @@ public class Deserializer {
 
         parseBody();
 
-        final var remaining = new byte[messageSize - 43];
+        final var remaining = new byte[messageSize - 49];
         inputStream.readFully(remaining);
 
         return new KValue(header);
@@ -40,6 +40,11 @@ public class Deserializer {
         System.out.println("array length = " + arrayLength);
         final var topicName = readString();
         System.out.println("topicName = " + topicName);
+        inputStream.readByte(); // skip tag buffer
+
+        final var partitionLimit = inputStream.readInt();
+
+        inputStream.readByte(); // skip cursor
         inputStream.readByte(); // skip tag buffer
     }
 
