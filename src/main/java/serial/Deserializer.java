@@ -29,7 +29,7 @@ public class Deserializer {
 
         parseBody();
 
-        final var remaining = new byte[messageSize - 42];
+        final var remaining = new byte[messageSize - 43];
         inputStream.readFully(remaining);
 
         return new KValue(header);
@@ -40,6 +40,7 @@ public class Deserializer {
         System.out.println("array length = " + arrayLength);
         final var topicName = readString();
         System.out.println("topicName = " + topicName);
+        inputStream.readByte(); // skip tag buffer
     }
 
     private void parseHeader(List<Integer> header) throws IOException {
