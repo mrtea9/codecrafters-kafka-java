@@ -36,7 +36,7 @@ public class Deserializer {
     }
 
     private void parseBody() throws IOException {
-        final var arrayLength = inputStream.readByte();
+        final var arrayLength = readLength();
         System.out.println("array length = " + arrayLength);
     }
 
@@ -51,5 +51,15 @@ public class Deserializer {
         header.add(apiKey);
         header.add(apiVersion);
         header.add(correlationId);
+    }
+
+    private int readUnsignedByte() throws IOException {
+        return Byte.toUnsignedInt(inputStream.readByte());
+    }
+
+    private int readLength() throws IOException {
+        final var first = readUnsignedByte();
+
+        return first & 0b0011_1111;
     }
 }
