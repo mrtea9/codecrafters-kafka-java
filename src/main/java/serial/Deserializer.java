@@ -22,6 +22,7 @@ public class Deserializer {
         List<Integer> header = new ArrayList<>();
 
         final int messageSize = inputStream.readInt();
+        System.out.println("messageSize = " + messageSize);
         header.add(messageSize);
 
         parseHeader(header);
@@ -36,7 +37,7 @@ public class Deserializer {
 
     private void parseBody() throws IOException {
         final var arrayLength = inputStream.readByte();
-        System.out.println(arrayLength);
+        System.out.println("array length = " + arrayLength);
     }
 
     private void parseHeader(List<Integer> header) throws IOException {
