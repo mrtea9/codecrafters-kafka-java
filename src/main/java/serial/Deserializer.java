@@ -36,8 +36,10 @@ public class Deserializer {
     }
 
     private void parseBody() throws IOException {
-        final var arrayLength = readLength();
+        final var arrayLength = readLength() - 1;
         System.out.println("array length = " + arrayLength);
+        final var topicNameLength = readLength() - 1;
+        System.out.println("topicNameLength = " + topicNameLength);
     }
 
     private void parseHeader(List<Integer> header) throws IOException {
