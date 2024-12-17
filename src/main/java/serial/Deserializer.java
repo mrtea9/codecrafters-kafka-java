@@ -3,7 +3,6 @@ package serial;
 import type.KValue;
 
 import java.io.DataInputStream;
-import java.io.IO;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
