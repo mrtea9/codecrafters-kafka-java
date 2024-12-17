@@ -3,6 +3,7 @@ package serial;
 import type.KValue;
 
 import java.io.DataInputStream;
+import java.io.IO;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -29,7 +30,7 @@ public class Deserializer {
 
         parseBody();
 
-        final var remaining = new byte[messageSize - 24];
+        final var remaining = new byte[messageSize - 25];
         inputStream.readFully(remaining);
 
         return new KValue(header);
@@ -38,8 +39,8 @@ public class Deserializer {
     private void parseBody() throws IOException {
         final var arrayLength = readLength() - 1;
         System.out.println("array length = " + arrayLength);
-        final var topicNameLength = readLength() - 1;
-        System.out.println("topicNameLength = " + topicNameLength);
+        final var topicName = readString();
+        System.out.println("topicName = " + topicName);
     }
 
     private void parseHeader(List<Integer> header) throws IOException {
@@ -53,6 +54,15 @@ public class Deserializer {
         header.add(apiKey);
         header.add(apiVersion);
         header.add(correlationId);
+    }
+
+    private String readString() throws IOException {
+        final var length = readLength() - 1;
+
+        System.out.println("length = " + length);
+
+        final var content = inputStream.readNBytes(length);
+        return new String(content, StandardCharsets.US_ASCII);
     }
 
     private int readUnsignedByte() throws IOException {
