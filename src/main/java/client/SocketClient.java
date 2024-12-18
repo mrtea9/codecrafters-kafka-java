@@ -1,5 +1,6 @@
 package client;
 
+import kafka.Kafka;
 import serial.Deserializer;
 import serial.Serializer;
 
@@ -13,11 +14,13 @@ public class SocketClient implements Runnable {
 
     private final int id;
     private final Socket socket;
+    private final Kafka evaluator;
     private boolean connected;
 
-    public SocketClient(Socket socket) {
+    public SocketClient(Socket socket, Kafka evaluator) {
         this.id = ID_INCREMENT.incrementAndGet();
         this.socket = socket;
+        this.evaluator = evaluator;
     }
 
     @Override
@@ -38,7 +41,9 @@ public class SocketClient implements Runnable {
                 if (request == null) return;
 
                 System.out.println("Received " + request);
-                serializer.write(request);
+                final var response = evaluator.evaluate(request);
+
+                serializer.write(response);
 
                 outputStream.flush();
             }

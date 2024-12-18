@@ -1,17 +1,20 @@
 package type;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class KValue {
 
     private int apiKey;
     private int apiVersion;
     private int correlationId;
     private int errorCode;
+    private KValueType type;
 
     public void setApiKey(int apiKey) {
         this.apiKey = apiKey;
+        this.type = switch (this.apiKey) {
+            case 18 -> KValueType.ApiVersion;
+            case 75 -> KValueType.DescribeTopic;
+            default -> KValueType.Unknown;
+        };
     }
 
     public void setApiVersion(int apiVersion) {
@@ -21,6 +24,10 @@ public class KValue {
 
     public void setCorrelationId(int correlationId) {
         this.correlationId = correlationId;
+    }
+
+    public KValueType getType() {
+        return type;
     }
 
     public int getCorrelationId() {
@@ -44,6 +51,7 @@ public class KValue {
         return ("Correlation ID: %d\n" +
                 "Error Code: %d\n" +
                 "Api Key: %d\n" +
-                "Api Version: %d\n").formatted(correlationId, errorCode, apiKey, apiVersion);
+                "Api Version: %d")
+                .formatted(correlationId, errorCode, apiKey, apiVersion);
     }
 }
