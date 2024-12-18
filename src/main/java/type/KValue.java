@@ -7,6 +7,7 @@ public class KValue {
     private int correlationId;
     private int errorCode;
     private KValueType type;
+    private String topic;
 
     public void setApiKey(int apiKey) {
         this.apiKey = apiKey;
@@ -24,6 +25,10 @@ public class KValue {
 
     public void setCorrelationId(int correlationId) {
         this.correlationId = correlationId;
+    }
+
+    public void setTopic(String name) {
+
     }
 
     public KValueType getType() {
@@ -51,7 +56,8 @@ public class KValue {
         return ("Correlation ID: %d\n" +
                 "Error Code: %d\n" +
                 "Api Key: %d\n" +
-                "Api Version: %d")
+                "Api Version: %d" +
+                (topic.isEmpty() ? "\nNo Topic name" : "Topic name: " + topic))
                 .formatted(correlationId, errorCode, apiKey, apiVersion);
     }
 }

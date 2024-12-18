@@ -56,6 +56,8 @@ public class Deserializer {
 
         inputStream.readByte(); // skip cursor
         inputStream.readByte(); // skip tag buffer
+
+        value.setTopic(topicName);
         
         return value;
     }
