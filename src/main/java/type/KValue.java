@@ -53,11 +53,23 @@ public class KValue {
 
     @Override
     public String toString() {
-        return ("Correlation ID: %d\n" +
-                "Error Code: %d\n" +
-                "Api Key: %d\n" +
-                "Api Version: %d" +
-                (topic.isEmpty() ? "\nNo Topic name" : "Topic name: " + topic))
-                .formatted(correlationId, errorCode, apiKey, apiVersion);
+        return switch (type) {
+            case ApiVersion -> ("""
+                    Correlation ID: %d
+                    Error Code: %d
+                    Api Key: %d
+                    Api Version: %d""")
+                    .formatted(correlationId, errorCode, apiKey, apiVersion);
+            case DescribeTopic -> ("""
+                    Correlation ID: %d
+                    Error Code: %d
+                    Api Key: %d
+                    Api Version: %d
+                    Topic Name: %s""")
+                    .formatted(correlationId, errorCode, apiKey, apiVersion, topic);
+            case Fetch -> "Fetch";
+            case Unknown -> "Unknown";
+            default -> "Default";
+        };
     }
 }
