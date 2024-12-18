@@ -66,7 +66,7 @@ public class Kafka {
         body.put(new byte[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}); // 16 bytes
         body.put((byte) 0); // 1 byte
         body.put((byte) 1); // 1 byte
-        body.put((byte) 0x00000df8); // 4 bytes
+        body.put(new byte[] {(byte) 0x00, (byte) 0x00, (byte) 0x0D, (byte) 0xF8}); // 4 bytes
         body.put((byte) 0); // tag buffer 1 byte
         body.put((byte) 0); // cursor 1 byte
         body.put((byte) 0); // tag buffer 1 byte
