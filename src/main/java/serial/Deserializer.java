@@ -22,6 +22,7 @@ public class Deserializer {
         var value = new KValue();
 
         this.messageSize = inputStream.readInt();
+        System.out.println("messageSize = " + messageSize);
 
         parseHeader(value);
 
@@ -34,9 +35,6 @@ public class Deserializer {
     }
 
     private KValue parseApiVersion(KValue value) throws IOException {
-
-        System.out.println("messageSize = " + messageSize);
-        
         inputStream.readAllBytes();
 
         return value;
@@ -50,9 +48,9 @@ public class Deserializer {
 
         final var partitionLimit = inputStream.readInt();
 
-        System.out.println("array length = " + arrayLength);
-        System.out.println("topicName = " + topicName);
-        System.out.println("partitionLimit = " + partitionLimit);
+//        System.out.println("array length = " + arrayLength);
+//        System.out.println("topicName = " + topicName);
+//        System.out.println("partitionLimit = " + partitionLimit);
 
         inputStream.readByte(); // skip cursor
         inputStream.readByte(); // skip tag buffer
@@ -78,7 +76,7 @@ public class Deserializer {
     private String readString() throws IOException {
         final var length = readLength() - 1;
 
-        System.out.println("length = " + length);
+        //System.out.println("length = " + length);
 
         final var content = inputStream.readNBytes(length);
         return new String(content, StandardCharsets.US_ASCII);
