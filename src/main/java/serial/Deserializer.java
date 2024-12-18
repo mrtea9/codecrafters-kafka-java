@@ -37,7 +37,7 @@ public class Deserializer {
     private KValue parseApiVersion(KValue value) throws IOException {
         System.out.println("api1");
 
-        inputStream.readAllBytes();
+        inputStream.readNBytes(messageSize);
 
         System.out.println("api2");
 
@@ -72,9 +72,7 @@ public class Deserializer {
         final var clientId = inputStream.readNBytes(clientLength);
         inputStream.readByte(); // skip tag buffer
 
-        messageSize = messageSize - 10 - clientLength;
-
-        System.out.println("messageSize = " + messageSize);
+        messageSize = messageSize - 11 - clientLength;
 
         value.setApiKey(apiKey);
         value.setApiVersion(apiVersion);
