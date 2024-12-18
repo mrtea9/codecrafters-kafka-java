@@ -35,11 +35,8 @@ public class Deserializer {
     }
 
     private KValue parseApiVersion(KValue value) throws IOException {
-        System.out.println("api1");
 
         inputStream.readNBytes(messageSize);
-
-        System.out.println("api2");
 
         return value;
     }
