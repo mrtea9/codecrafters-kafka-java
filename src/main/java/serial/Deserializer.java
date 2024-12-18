@@ -72,7 +72,7 @@ public class Deserializer {
         final var clientId = inputStream.readNBytes(clientLength);
         inputStream.readByte(); // skip tag buffer
 
-        messageSize -= 10 - clientLength;
+        messageSize = messageSize - 10 - clientLength;
 
         System.out.println("messageSize = " + messageSize);
 
