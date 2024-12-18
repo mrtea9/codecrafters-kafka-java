@@ -1,5 +1,4 @@
 import client.SocketClient;
-import kafka.Kafka;
 import serial.Deserializer;
 import serial.Serializer;
 import util.TrackedInputStream;
@@ -15,7 +14,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         final ThreadFactory threadFactory = Thread.ofVirtual().factory();
-        final Kafka kafka = new Kafka();
 
         final int port = 9092;
 
@@ -26,7 +24,7 @@ public class Main {
 
             while (true) {
                 final Socket socket = serverSocket.accept();
-                final var client = new SocketClient(socket, kafka);
+                final var client = new SocketClient(socket);
 
                 final Thread thread = threadFactory.newThread(client);
                 thread.start();
