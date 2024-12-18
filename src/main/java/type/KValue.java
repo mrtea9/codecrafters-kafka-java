@@ -28,7 +28,7 @@ public class KValue {
     }
 
     public void setTopic(String name) {
-
+        this.topic = name;
     }
 
     public KValueType getType() {
