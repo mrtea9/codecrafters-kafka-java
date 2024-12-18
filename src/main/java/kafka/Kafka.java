@@ -60,7 +60,7 @@ public class Kafka {
 
         body.putInt(0); // throttle time 4 bytes
         body.put((byte) 2); // array length 1 byte
-        body.putShort((short) 3); // errorCode 2 bytes
+        body.putShort((short) 0); // errorCode 2 bytes
         body.put((byte) ((byte) topicName.getBytes().length + 1)); // 1 byte
         body.put(topicName.getBytes()); // length bytes
         body.put(new byte[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}); // 16 bytes
