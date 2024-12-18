@@ -31,6 +31,10 @@ public class KValue {
         this.topic = name;
     }
 
+    public String getTopic() {
+        return topic;
+    }
+
     public KValueType getType() {
         return type;
     }
