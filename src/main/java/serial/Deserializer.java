@@ -65,12 +65,16 @@ public class Deserializer {
     }
 
     private void parseHeader(KValue value) throws IOException {
-        final int apiKey = inputStream.readShort();
-        final int apiVersion = inputStream.readShort();
-        final int correlationId = inputStream.readInt();
-        final int clientLength = inputStream.readShort();
+        final int apiKey = inputStream.readShort(); // 2 bytes
+        final int apiVersion = inputStream.readShort(); // 2 bytes
+        final int correlationId = inputStream.readInt(); // 4 bytes
+        final int clientLength = inputStream.readShort(); // 2 bytes
         final var clientId = inputStream.readNBytes(clientLength);
         inputStream.readByte(); // skip tag buffer
+
+        messageSize -= 10 - clientLength;
+
+        System.out.println("messageSize = " + messageSize);
 
         value.setApiKey(apiKey);
         value.setApiVersion(apiVersion);
