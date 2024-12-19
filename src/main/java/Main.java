@@ -22,6 +22,8 @@ public class Main {
         Path path = null;
 
         if (args.length > 1) {
+            System.out.println("args[1] = " + args[1]);
+
             path = Paths.get(args[1]);
 
             if (Files.exists(path)) KafkaLoader.load(path, storage);
