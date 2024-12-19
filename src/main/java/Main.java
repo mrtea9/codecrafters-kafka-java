@@ -1,13 +1,14 @@
 import client.SocketClient;
 import kafka.Kafka;
-import serial.Deserializer;
-import serial.Serializer;
-import util.TrackedInputStream;
-import util.TrackedOutputStream;
+import kafka.KafkaLoader;
+import store.Storage;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.ThreadFactory;
 
 public class Main {
@@ -15,7 +16,16 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         final ThreadFactory threadFactory = Thread.ofVirtual().factory();
+        final Storage storage = new Storage();
+
         final Kafka kafka = new Kafka();
+        Path path = null;
+
+        if (args.length > 1) {
+            path = Paths.get(args[1]);
+
+            if (Files.exists(path)) KafkaLoader.load(path, storage);
+        }
 
         final int port = 9092;
 
