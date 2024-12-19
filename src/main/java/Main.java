@@ -26,7 +26,7 @@ public class Main {
 
             System.out.println(args[0]);
 
-            path = Paths.get("/tmp/kraft-combined-logs/meta.properties");
+            path = Paths.get("/tmp/kraft-combined-logs/__cluster_metadata-0/00000000000000000000.log");
 
             if (Files.exists(path)) KafkaLoader.load(path, storage);
         }
