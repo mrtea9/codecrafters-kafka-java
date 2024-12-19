@@ -24,7 +24,7 @@ public class KafkaLoader {
 
         String string = new String(stringBytes);
 
-        System.out.println("string = " + string);
+        System.out.println(string);
 
     }
 
