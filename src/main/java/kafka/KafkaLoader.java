@@ -20,9 +20,12 @@ public class KafkaLoader {
 
     public void load() throws IOException {
 
-        final var loaded = inputStream.readUTF();
+        byte[] stringBytes = inputStream.readAllBytes();
 
-        System.out.println(loaded);
+        String string = new String(stringBytes);
+
+        System.out.println(string);
+
     }
 
     public static void load(Path path, Storage storage) throws IOException {
