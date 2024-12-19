@@ -24,7 +24,6 @@ public class KafkaLoader {
         String serverContents = new String(serverProperties);
 
         final var logDirs = "log.dirs=";
-
         final var directoryIndex = serverContents.indexOf(logDirs);
         final var directoryPath = serverContents.substring(directoryIndex + logDirs.length());
 
