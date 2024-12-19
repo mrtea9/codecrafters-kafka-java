@@ -21,6 +21,8 @@ public class Main {
         final Kafka kafka = new Kafka();
         Path path = null;
 
+        System.out.println("args length = " + args.length);
+
         if (args.length > 1) {
             System.out.println("args[1] = " + args[1]);
 
