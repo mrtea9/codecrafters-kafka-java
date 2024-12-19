@@ -25,7 +25,7 @@ public class KafkaLoader {
         String string = new String(stringBytes);
 
         System.out.println(string);
-
+        System.out.println(string.indexOf("log.dirs="));
     }
 
     public static void load(Path path, Storage storage) throws IOException {
