@@ -21,13 +21,10 @@ public class Main {
         final Kafka kafka = new Kafka();
         Path path = null;
 
-        System.out.println("args length = " + args.length);
-        System.out.println("args[0] = " + args[0]);
 
-        if (args.length > 1) {
-            System.out.println("args[1] = " + args[1]);
+        if (args.length == 1) {
 
-            path = Paths.get(args[1]);
+            path = Paths.get(args[0]);
 
             if (Files.exists(path)) KafkaLoader.load(path, storage);
         }
