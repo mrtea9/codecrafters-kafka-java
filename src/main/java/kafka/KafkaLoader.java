@@ -20,13 +20,14 @@ public class KafkaLoader {
 
     public void load() throws IOException {
 
-        byte[] stringBytes = inputStream.readAllBytes();
+        byte[] serverProperties = inputStream.readAllBytes();
+        String serverContents = new String(serverProperties);
 
-        String string = new String(stringBytes);
+        final var logDirs = "log.dirs=";
+        final var directoryIndex = serverContents.indexOf(logDirs);
+        final var directoryPath = serverContents.substring(directoryIndex + logDirs.length());
 
-        System.out.println(string);
-        System.out.println(string.indexOf("log.dirs="));
-        System.out.println(string.substring(string.indexOf("log.dirs=")));
+        System.out.println(directoryPath);
     }
 
     public static void load(Path path, Storage storage) throws IOException {
