@@ -28,6 +28,7 @@ public class KafkaLoader {
         final var directoryPath = serverContents.substring(directoryIndex + logDirs.length());
 
         System.out.println(directoryPath);
+
     }
 
     public static void load(Path path, Storage storage) throws IOException {
