@@ -25,6 +25,7 @@ public class DataByteBuffer implements DataInput {
         delegate.mark();
         byte value = delegate.get();
         delegate.reset();
+
         return value;
     }
 
