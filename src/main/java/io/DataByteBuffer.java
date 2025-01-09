@@ -39,7 +39,6 @@ public class DataByteBuffer implements DataInput {
         return delegate.getShort();
     }
 
-
     @Override
     public int readSignedInt() throws IOException {
         return delegate.getInt();
