@@ -17,19 +17,9 @@ public class Main {
 
         final ThreadFactory threadFactory = Thread.ofVirtual().factory();
         final Storage storage = new Storage();
+        final KafkaLoader kafkaLoader = KafkaLoader.load("/tmp/kraft-combined-logs/", storage);
 
         final Kafka kafka = new Kafka();
-        Path path = null;
-
-
-        if (args.length == 1) {
-
-            System.out.println(args[0]);
-
-            path = Paths.get(args[0]);
-
-            if (Files.exists(path)) KafkaLoader.load(path, storage);
-        }
 
         final int port = 9092;
 

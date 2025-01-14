@@ -3,45 +3,31 @@ package kafka;
 import store.Storage;
 
 import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HexFormat;
 
 public class KafkaLoader {
 
-    private final DataInputStream inputStream;
+    private final String logsRoot;
     private final Storage storage;
 
-    public KafkaLoader(DataInputStream inputStream, Storage storage) {
-        this.inputStream = inputStream;
+    public KafkaLoader(String logsRoot, Storage storage) {
+        this.logsRoot = logsRoot;
         this.storage = storage;
     }
 
-    public void load() throws IOException {
+    public static KafkaLoader load(String logsRoot, Storage storage) throws IOException {
 
-        byte[] serverProperties = inputStream.readAllBytes();
-        String serverContents = new String(serverProperties);
+        final var path = logsRoot + "__cluster_metadata-0/00000000000000000000.log";
 
-        final var logDirs = "log.dirs=";
-        final var directoryIndex = serverContents.indexOf(logDirs);
-        final var directoryPath = serverContents.substring(directoryIndex + logDirs.length());
-
-
-        System.out.println(directoryPath);
-
-    }
-
-    public static void load(Path path, Storage storage) throws IOException {
-        try (final var fileInputStream = Files.newInputStream(path)) {
-            load(fileInputStream, storage);
+        try (final var fileInputStream = new FileInputStream(path)) {
+            System.out.println(HexFormat.ofDelimiter("").formatHex(fileInputStream.readAllBytes()));
         }
-    }
 
-    public static void load(InputStream inputStream, Storage storage) throws IOException {
-        try (final var dataInputStream = new DataInputStream(inputStream)) {
-            final var loader = new KafkaLoader(dataInputStream, storage);
-            loader.load();
-        }
+        return new KafkaLoader(logsRoot, storage);
     }
 }
