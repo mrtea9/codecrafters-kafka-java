@@ -15,6 +15,7 @@ public class Kafka {
             case Fetch -> null;
             case Unknown -> null;
         };
+
     }
 
     private byte[] createDescribeResponse(KValue value) {
