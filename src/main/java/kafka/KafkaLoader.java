@@ -30,5 +30,4 @@ public class KafkaLoader {
 
         return new KafkaLoader(logsRoot, storage);
     }
-    
 }
