@@ -28,6 +28,7 @@ public class KafkaLoader {
             System.out.println(HexFormat.ofDelimiter("").formatHex(fileInputStream.readAllBytes()));
         }
 
+
         return new KafkaLoader(logsRoot, storage);
     }
 }
